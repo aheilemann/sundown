@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import Navbar from "../components/Navbar";
 import RedButton from "../components/RedButton";
+import Link from "next/link";
 
 const Wrapper = styled.div`
   display: flex;
@@ -54,7 +55,7 @@ export default function Home() {
           </Col>
           <Col size={3}>
             <Text>Order Flow Box</Text>
-            <RedButton>ORDER</RedButton>
+            <Link href="/food" passHref><RedButton>ORDER</RedButton></Link>
           </Col>
         </Row>
         <Row>
