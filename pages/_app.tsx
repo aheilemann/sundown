@@ -1,7 +1,10 @@
+/* tslint:disable */
 import Head from "next/head";
 import React from "react";
 import { createGlobalStyle, ThemeProvider } from "styled-components";
 import theme from "../constants/theme";
+// import OrderContext from "../contexts/orderContext";
+import { OrderProvider } from "../contexts/orderContext";
 
 const GlobalStyle = createGlobalStyle`
   html, body {
@@ -18,6 +21,12 @@ const GlobalStyle = createGlobalStyle`
   }
 `;
 
+const order = {
+  email: "test",
+  foods: [],
+  drinks: [],
+};
+
 function MyApp({ Component, pageProps }) {
   return (
     <>
@@ -27,7 +36,11 @@ function MyApp({ Component, pageProps }) {
         <meta name="description" content="Great food - great view" />
       </Head>
       <ThemeProvider theme={theme}>
-        <Component {...pageProps} />
+        <OrderProvider>
+          {/* <OrderContext.Provider> */}
+          <Component {...pageProps} />
+          {/* </OrderContext> */}
+        </OrderProvider>
       </ThemeProvider>
     </>
   );

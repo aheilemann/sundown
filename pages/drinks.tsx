@@ -1,12 +1,14 @@
 import styled from "styled-components";
 import Link from "next/link";
 import Image from 'next/image'
-import { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import { GetServerSideProps } from "next";
 import axios from "axios";
+
+import OrderContext from "../contexts/orderContext";
 
 import Navbar from "../components/Navbar";
 import RedButton from "../components/RedButton";
-import { GetServerSideProps } from "next";
 
 const Wrapper = styled.div`
   display: flex;
@@ -107,7 +109,8 @@ async function fetchData (){
 
 const Drinks: React.FC<DrinksProps> = ({ drinks, error }) => {
   const selectedDrinks: Drink[] = [];
-  console.log("selectedDrinks", selectedDrinks);
+  const [order, setOrder] = useContext(OrderContext);
+
   return (
     <Wrapper>
       <Navbar />
@@ -126,9 +129,11 @@ const Drinks: React.FC<DrinksProps> = ({ drinks, error }) => {
             </DrinksWrapper>
             <Col size={3}>
               <Text>Order Flow Box</Text>
-              {/* <Link href="/order" passHref> */}
-                <RedButton onClick={() => console.log(selectedDrinks)}>NEXT</RedButton>
-              {/* </Link> */}
+              <Link href="/order" passHref>
+                <RedButton onClick={() => 
+                  setOrder((order) => ({ ...order, drinks: order.drinks.concat(selectedDrinks) }))
+                }>NEXT</RedButton>
+              </Link>
             </Col>
           </Row>
         </Grid>

@@ -1,12 +1,15 @@
 import styled from "styled-components";
 import Link from "next/link";
-import Image from 'next/image'
-import { useEffect, useState } from "react";
+import Image from "next/image";
+import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
+import { GetServerSideProps } from "next";
+
+import OrderContext from "../contexts/orderContext";
 
 import Navbar from "../components/Navbar";
 import RedButton from "../components/RedButton";
-import { GetServerSideProps } from "next";
+
 
 const Wrapper = styled.div`
   display: flex;
@@ -71,7 +74,7 @@ const ImageSrc = styled.img`
   justify-content: center;
 `;
 
-async function fetchData (){
+async function fetchData() {
   return await axios
     .get("https://www.themealdb.com/api/json/v1/1/random.php")
     .then((res) => ({
@@ -82,18 +85,17 @@ async function fetchData (){
       error: true,
       dish: null,
     }));
-  };
+}
 
-
-
-const Food: React.FC<FoodProps>  = ({ dish, error }) => {
+const Food: React.FC<FoodProps> = ({ dish, error }) => {
   const [newDish, setDish] = useState<Dish>(dish);
-  
+  const [order, setOrder] = useContext(OrderContext);
   async function handleClick() {
     const data = await fetchData();
     setDish(data.dish);
+    // console.log("order", order);
   }
-  
+
   return (
     <Wrapper>
       <Navbar />
@@ -102,7 +104,14 @@ const Food: React.FC<FoodProps>  = ({ dish, error }) => {
         <Grid>
           <Row>
             <FoodWrapper size={7}>
-              <ImageSrc src={newDish.strMealThumb} alt={newDish.strMeal} width={300} height={300} />
+              {/* {order.dishes[0].strMeal} */}
+
+              <ImageSrc
+                src={newDish.strMealThumb}
+                alt={newDish.strMeal}
+                width={300}
+                height={300}
+              />
               <h1>{newDish.strMeal}</h1>
               <body>{newDish.strInstructions}</body>
               <RedButton onClick={() => handleClick()}>Generate View</RedButton>
@@ -111,7 +120,9 @@ const Food: React.FC<FoodProps>  = ({ dish, error }) => {
             <Col size={3}>
               <Text>Order Flow Box</Text>
               <Link href="/drinks" passHref>
-                <RedButton>NEXT</RedButton>
+                <RedButton onClick={() =>
+                  setOrder((order) => ({ ...order, dishes: order.dishes.concat(newDish) }))
+                }>NEXT</RedButton>
               </Link>
             </Col>
           </Row>
@@ -120,6 +131,7 @@ const Food: React.FC<FoodProps>  = ({ dish, error }) => {
     </Wrapper>
   );
 };
+
 export default Food;
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
@@ -139,4 +151,11 @@ type Dish = {
   strMeal: string;
   strInstructions: string;
   strMealThumb: string;
+};
+
+type Drink = {
+  id: number;
+  name: string;
+  tagline: string;
+  image_url: string;
 };
