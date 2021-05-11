@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import StyledLink from "./StyledLink";
-import Image from 'next/image'
+import Image from "next/image";
 
 const Wrapper = styled.div`
   display: flex;
@@ -11,14 +10,22 @@ const Wrapper = styled.div`
   justify-content: space-between;
 `;
 
+const StyledA = styled.a`
+  color: ${({ theme }) => theme.colors.primary};
+  text-decoration: none;
+  transition: all 0.2s ease-in-out;
+`;
+
 const Navbar = () => {
   return (
     <Wrapper>
-      <Image src="/logo.svg" alt="Sundown Boulevard" width={72} height={72} />
-      <StyledLink href={`#restauranter`}>RESTAURANTER</StyledLink>
-      <StyledLink href={`#produkter`}>PRODUKTER</StyledLink>
-      <StyledLink href={`#nyhedsbrev`}>NYHEDSBREV</StyledLink>
-      <StyledLink href={`#kontakt`}>KONTAKT</StyledLink>
+      <StyledA href={`/`}>
+        <Image src="/logo.svg" alt="Sundown Boulevard" width={72} height={72} />
+      </StyledA>
+      <StyledA href={`#restauranter`}>RESTAURANTER</StyledA>
+      <StyledA href={`#produkter`}>PRODUKTER</StyledA>
+      <StyledA href={`#nyhedsbrev`}>NYHEDSBREV</StyledA>
+      <StyledA href={`#kontakt`}>KONTAKT</StyledA>
     </Wrapper>
   );
 };
