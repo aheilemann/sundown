@@ -3,6 +3,8 @@ const OrderContext = React.createContext([{}, () => {}]);
 export const OrderProvider = (props) => {
   const [order, setOrder] = useState<Order>({
     email: "",
+    numOfGuests: 1,
+    bookingDate: new Date(),
     dishes: [],
     drinks: [],
   });
@@ -17,6 +19,8 @@ export default OrderContext;
 
 type Order = {
   email: string;
+  numOfGuests: number;
+  bookingDate: Date;
   dishes: Dish[];
   drinks: Drink[];
 };
