@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import Link from "next/link";
+import StyledLink from "./styledLink";
 import Image from 'next/image'
 
 const Wrapper = styled.div`
@@ -15,10 +15,10 @@ const Navbar = () => {
   return (
     <Wrapper>
       <Image src="/logo.svg" alt="Sundown Boulevard" width={72} height={72} />
-      <Link href={`/#restauranter`}>RESTAURANTER</Link>
-      <Link href={`/#produkter`}>PRODUKTER</Link>
-      <Link href={`/#nyhedsbrev`}>NYHEDSBREV</Link>
-      <Link href={`/#kontakt`}>KONTAKT</Link>
+      <StyledLink href={`/#restauranter`}>RESTAURANTER</StyledLink>
+      <StyledLink href={`/#produkter`}>PRODUKTER</StyledLink>
+      <StyledLink href={`/#nyhedsbrev`}>NYHEDSBREV</StyledLink>
+      <StyledLink href={`/#kontakt`}>KONTAKT</StyledLink>
     </Wrapper>
   );
 };
