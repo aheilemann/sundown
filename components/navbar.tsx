@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import StyledLink from "./styledLink";
+import StyledLink from "./StyledLink";
 import Image from 'next/image'
 
 const Wrapper = styled.div`

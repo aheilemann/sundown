@@ -1,18 +1,19 @@
 import styled from "styled-components";
-import Navbar from "../components/navbar";
+import Navbar from "../components/Navbar";
+import RedButton from "../components/RedButton";
 
 const Wrapper = styled.div`
-     display: flex;
-     flex-flow: column nowrap;
-     align-items: center;
-     justify-content: center;
-     padding: 3rem 0;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 0;
 `;
 
 const Grid = styled.div`
   align-items: center;
   justify-content: center;
-  
+
   width: 800px;
   max-width: 800px;
   margin-top: 3rem;
@@ -23,8 +24,12 @@ const Row = styled.div`
 `;
 
 const Col = styled.div`
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: left;
+  justify-content: space-between;
   margin: 0.5rem;
-  padding: 1.5rem;
+  padding: 1rem;
   text-align: left;
   color: inherit;
   text-decoration: none;
@@ -35,7 +40,7 @@ const Col = styled.div`
 `;
 
 const Text = styled.div`
-  color: ${({theme}) => theme.colors.primary};
+  color: ${({ theme }) => theme.colors.primary};
 `;
 
 export default function Home() {
@@ -44,12 +49,21 @@ export default function Home() {
       <Navbar />
       <Grid>
         <Row>
-          <Col size={7}><Text>IMAGES</Text></Col>
-          <Col size={3}><Text>Order</Text></Col>
+          <Col size={7}>
+            <Text>IMAGES</Text>
+          </Col>
+          <Col size={3}>
+            <Text>Order Flow Box</Text>
+            <RedButton>ORDER</RedButton>
+          </Col>
         </Row>
         <Row>
-          <Col size={5}><Text>Find your order</Text></Col>
-          <Col size={5}><Text>Content Box</Text></Col>
+          <Col size={5}>
+            <Text>Find your order</Text>
+          </Col>
+          <Col size={5}>
+            <Text>Content Box</Text>
+          </Col>
         </Row>
       </Grid>
     </Wrapper>
