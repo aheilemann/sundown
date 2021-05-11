@@ -1,4 +1,3 @@
-import Head from "next/head";
 import styled from "styled-components";
 import Navbar from "../components/navbar";
 
@@ -13,6 +12,8 @@ const Wrapper = styled.div`
 const Grid = styled.div`
   align-items: center;
   justify-content: center;
+  
+  width: 800px;
   max-width: 800px;
   margin-top: 3rem;
 `;
@@ -22,7 +23,7 @@ const Row = styled.div`
 `;
 
 const Col = styled.div`
-  margin: 1rem;
+  margin: 0.5rem;
   padding: 1.5rem;
   text-align: left;
   color: inherit;
@@ -33,22 +34,22 @@ const Col = styled.div`
   min-height: 12rem;
 `;
 
+const Text = styled.div`
+  color: ${({theme}) => theme.colors.primary};
+`;
+
 export default function Home() {
   return (
     <Wrapper>
-      <Head>
-        <title>Sundown Boulevard</title>
-        <meta name="description" content="Great food - great view" />
-      </Head>
       <Navbar />
       <Grid>
         <Row>
-          <Col size={7}>IMAGES</Col>
-          <Col size={3}>Order</Col>
+          <Col size={7}><Text>IMAGES</Text></Col>
+          <Col size={3}><Text>Order</Text></Col>
         </Row>
         <Row>
-          <Col size={5}>Find your order</Col>
-          <Col size={5}>Content Box</Col>
+          <Col size={5}><Text>Find your order</Text></Col>
+          <Col size={5}><Text>Content Box</Text></Col>
         </Row>
       </Grid>
     </Wrapper>
