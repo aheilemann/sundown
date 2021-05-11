@@ -24,7 +24,7 @@ const Row = styled.div`
   display: flex;
 `;
 
-const Col = styled.div`
+const Col = styled.div<{ size?: number }>`
   display: flex;
   flex-flow: column nowrap;
   align-items: left;

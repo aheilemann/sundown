@@ -30,7 +30,7 @@ const Row = styled.div`
   flex-flow: row wrap;
 `;
 
-const Col = styled.div`
+const Col = styled.div<{ size?: number }>`
   display: flex;
   flex-flow: column nowrap;
   align-items: left;
@@ -46,7 +46,7 @@ const Col = styled.div`
   max-height: 12rem;
 `;
 
-const DrinksWrapper = styled.div`
+const DrinksWrapper = styled.div<{ size?: number }>`
   display: flex;
   flex-flow: row wrap;
   align-items: left;
@@ -62,7 +62,7 @@ const DrinksWrapper = styled.div`
   min-height: 24rem;
 `;
 
-const Drink = styled.div`
+const DrinkWrapper = styled.div<{ size?: number }>`
   display: flex;
   flex-flow: column nowrap;
   align-items: center;
@@ -94,7 +94,7 @@ const ImageSrc = styled.img`
 
 async function fetchData (){
   return await axios
-    .get("https://api.punkapi.com/v2/beers")
+    .get<Drink[]>("https://api.punkapi.com/v2/beers")
     .then((res) => ({
       error: false,
       drinks: res.data,
@@ -105,9 +105,7 @@ async function fetchData (){
     }));
   };
 
-
-
-const Food = ({ drinks, error }) => {
+const Drinks: React.FC<DrinksProps> = ({ drinks, error }) => {
   const selectedDrinks: Drink[] = [];
   console.log("selectedDrinks", selectedDrinks);
   return (
@@ -119,11 +117,11 @@ const Food = ({ drinks, error }) => {
           <Row>
           <DrinksWrapper size={7}>
           {drinks.map(drink => (
-            <Drink onClick={() => !selectedDrinks.includes(drink) && selectedDrinks.push(drink)}>
+            <DrinkWrapper onClick={() => !selectedDrinks.includes(drink) && selectedDrinks.push(drink)}>
               <ImageSrc  src={drink.image_url} alt={drink.tagline} height={"50%"} width={"auto"}  />
               <h3>{drink.name}</h3>
               <body>{drink.tagline}</body>
-              </Drink>
+              </DrinkWrapper>
           ))}
             </DrinksWrapper>
             <Col size={3}>
@@ -138,7 +136,7 @@ const Food = ({ drinks, error }) => {
     </Wrapper>
   );
 };
-export default Food;
+export default Drinks;
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const data = await fetchData();
@@ -146,6 +144,11 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   return {
     props: data,
   };
+};
+
+type DrinksProps = {
+  drinks: Drink[];
+  error?: string;
 };
 
 type Drink = {

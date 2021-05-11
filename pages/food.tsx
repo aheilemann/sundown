@@ -29,7 +29,7 @@ const Row = styled.div`
   display: flex;
 `;
 
-const Col = styled.div`
+const Col = styled.div<{ size?: number }>`
   display: flex;
   flex-flow: column nowrap;
   align-items: left;
@@ -45,7 +45,7 @@ const Col = styled.div`
   max-height: 12rem;
 `;
 
-const FoodWrapper = styled.div`
+const FoodWrapper = styled.div<{ size?: number }>`
   display: flex;
   flex-flow: column nowrap;
   align-items: left;
@@ -86,7 +86,7 @@ async function fetchData (){
 
 
 
-const Food = ({ dish, error }) => {
+const Food: React.FC<FoodProps>  = ({ dish, error }) => {
   const [newDish, setDish] = useState<Dish>(dish);
   
   async function handleClick() {
@@ -128,6 +128,11 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   return {
     props: data,
   };
+};
+
+type FoodProps = {
+  dish: Dish;
+  error?: string;
 };
 
 type Dish = {
