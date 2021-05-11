@@ -15,10 +15,10 @@ const Navbar = () => {
   return (
     <Wrapper>
       <Image src="/logo.svg" alt="Sundown Boulevard" width={72} height={72} />
-      <StyledLink href={`/#restauranter`}>RESTAURANTER</StyledLink>
-      <StyledLink href={`/#produkter`}>PRODUKTER</StyledLink>
-      <StyledLink href={`/#nyhedsbrev`}>NYHEDSBREV</StyledLink>
-      <StyledLink href={`/#kontakt`}>KONTAKT</StyledLink>
+      <StyledLink href={`#restauranter`}>RESTAURANTER</StyledLink>
+      <StyledLink href={`#produkter`}>PRODUKTER</StyledLink>
+      <StyledLink href={`#nyhedsbrev`}>NYHEDSBREV</StyledLink>
+      <StyledLink href={`#kontakt`}>KONTAKT</StyledLink>
     </Wrapper>
   );
 };
