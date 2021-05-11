@@ -1,12 +1,27 @@
 import Head from "next/head";
 import React from "react";
-import { ThemeProvider } from "styled-components";
+import { createGlobalStyle, ThemeProvider } from "styled-components";
 import theme from "../constants/theme";
-import "../styles/globals.css";
+
+const GlobalStyle = createGlobalStyle`
+  html, body {
+    margin: 0;
+    padding: 0;
+    font-family: Helvetica Neue;
+  }
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+  * {
+  box-sizing: border-box;
+  }
+`;
 
 function MyApp({ Component, pageProps }) {
   return (
-    <div>
+    <>
+      <GlobalStyle />
       <Head>
         <title>Sundown Boulevard</title>
         <meta name="description" content="Great food - great view" />
@@ -14,7 +29,7 @@ function MyApp({ Component, pageProps }) {
       <ThemeProvider theme={theme}>
         <Component {...pageProps} />
       </ThemeProvider>
-    </div>
+    </>
   );
 }
 
