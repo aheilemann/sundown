@@ -1,50 +1,11 @@
-import styled from "styled-components";
-import Link from "next/link";
-import Router from "next/router";
-import React, { useContext, useState } from "react";
-import DatePicker from "react-datepicker";
-
+import React, { useContext } from "react";
 import OrderContext from "../contexts/orderContext";
 
 import Navbar from "../components/Navbar";
 import RedButton from "../components/RedButton";
 
-import "react-datepicker/dist/react-datepicker.css";
-
 import { Text, H1 } from "../common/TextElements";
-
-const Wrapper = styled.div`
-  display: flex;
-  flex-flow: column nowrap;
-  align-items: center;
-  justify-content: center;
-  padding: 3rem 0;
-`;
-
-const Row = styled.div<{ size?: number }>`
-  display: flex;
-  flex-flow: row nowrap;
-  align-items: center;
-  justify-content: center;
-
-  width: 800px;
-  max-width: 800px;
-  margin-top: 3rem;
-`;
-
-const Col = styled.div<{ size?: number }>`
-  display: flex;
-  flex-flow: column nowrap;
-  flex: ${(props) => props.size};
-`;
-const ButtonWrapper = styled.div`
-  width: 200px;
-`;
-
-// const H1 = styled.div`
-//   font-size: 3rem;
-//   color: ${({ theme }) => theme.colors.primary};
-// `;
+import { Container } from "../common/Layout";
 
 function export2txt(order) {
   const a = document.createElement("a");
@@ -65,7 +26,7 @@ const Receipt = () => {
   console.log(order);
 
   return (
-    <Wrapper>
+    <Container>
       <Navbar />
       {order && (
         <div>
@@ -86,11 +47,12 @@ const Receipt = () => {
           <Text secondary>{order.bookingDate.toLocaleString("da-DK")}</Text>
           <Text>Number of guests: </Text>
           <Text secondary>{order.numOfGuests}</Text>
+          <Text>Contact details: </Text>
           <Text secondary>{order.email}</Text>
           <RedButton onClick={() => export2txt(order)}>Download</RedButton>
         </div>
       )}
-    </Wrapper>
+    </Container>
   );
 };
 export default Receipt;

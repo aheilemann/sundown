@@ -3,7 +3,7 @@ import Navbar from "../components/Navbar";
 import RedButton from "../components/RedButton";
 import Link from "next/link";
 import { useState } from "react";
-import { Text } from "../common/TextElements";
+import { Text, H2, H3 } from "../common/TextElements";
 
 const Wrapper = styled.div`
   display: flex;
@@ -52,6 +52,12 @@ const ButtonWrapper = styled.div`
   width: 200px;
 `;
 
+const ImageSrc = styled.img`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
 export default function Home() {
   const [email, setEmail] = useState("");
   return (
@@ -60,10 +66,14 @@ export default function Home() {
       <Grid>
         <Row>
           <Col size={7}>
-            <Text>IMAGES</Text>
+          <ImageSrc
+                  src="/food.jpg"
+                  alt="missing"
+                  width="100%"
+                />
           </Col>
           <Col size={3}>
-            <Text>Start your order here:</Text>
+            <H2>Pick food</H2>
             <Link href="/food" passHref>
               <RedButton>ORDER</RedButton>
             </Link>
@@ -71,16 +81,17 @@ export default function Home() {
         </Row>
         <Row>
           <Col size={5}>
-            <Text>Enter Email: </Text>
+            <H3>Find existing order</H3>
             <input
               type="email"
               value={email}
+              placeholder="Enter Email:"
               onChange={(e) => setEmail(e.target.value)}
               required
             />
             <ButtonWrapper>
               <Link href="/food" passHref>
-                <RedButton>FIND</RedButton>
+                <RedButton>Find Order</RedButton>
               </Link>
             </ButtonWrapper>
           </Col>

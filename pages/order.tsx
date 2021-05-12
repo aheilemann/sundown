@@ -1,25 +1,17 @@
 import styled from "styled-components";
-import Link from "next/link";
 import Router from "next/router";
 import React, { useContext, useState } from "react";
 import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 import OrderContext from "../contexts/orderContext";
 
 import Navbar from "../components/Navbar";
 import RedButton from "../components/RedButton";
 
-import "react-datepicker/dist/react-datepicker.css";
+import { Container } from "../common/Layout";
 
-const Wrapper = styled.div`
-  display: flex;
-  flex-flow: column nowrap;
-  align-items: center;
-  justify-content: center;
-  padding: 3rem 0;
-`;
-
-const Row = styled.div<{ size?: number }>`
+const OrderWrapper = styled.div`
   display: flex;
   flex-flow: row nowrap;
   align-items: center;
@@ -30,17 +22,22 @@ const Row = styled.div<{ size?: number }>`
   margin-top: 3rem;
 `;
 
+const Row = styled.div<{ size?: number }>`
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+`;
+
 const Col = styled.div<{ size?: number }>`
   display: flex;
   flex-flow: column nowrap;
   flex: ${(props) => props.size};
 `;
+
 const ButtonWrapper = styled.div`
   width: 200px;
-`;
-
-const Text = styled.div`
-  color: ${({ theme }) => theme.colors.primary};
 `;
 
 const Order = () => {
@@ -48,7 +45,7 @@ const Order = () => {
   const [bookingDate, setBookingDate] = useState(new Date());
   const [numOfGuests, setNumOfGuests] = useState(1);
   const [email, setEmail] = useState("");
-
+  console.log(order);
   const handleSubmit = async (e) => {
     console.log(e);
     setOrder((order) => ({
@@ -62,10 +59,10 @@ const Order = () => {
   };
 
   return (
-    <Wrapper>
+    <Container>
       <Navbar />
       <form onSubmit={(e) => handleSubmit(e)} id="orderForm">
-        <Row>
+        <OrderWrapper>
           <Row size={1}>
             <Col>
               <label>Select date and time:</label>
@@ -101,13 +98,13 @@ const Order = () => {
             <br />
             <ButtonWrapper>
               <RedButton type="submit" form="orderForm">
-                ORDER/UPDATE
+                ORDER
               </RedButton>
             </ButtonWrapper>
           </Col>
-        </Row>
+        </OrderWrapper>
       </form>
-    </Wrapper>
+    </Container>
   );
 };
 export default Order;

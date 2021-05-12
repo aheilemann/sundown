@@ -8,11 +8,12 @@ const ButtonRed = styled.button`
   cursor: pointer;
   border-radius: 2.5em;
   border: none;
-  padding: 1.5em;
+  padding: .75em;
   white-space: nowrap;
   color: white;
   line-height: 1;
   font-weight: 700;
+  font-size: 1.125em;
   text-decoration: none;
   transition: background 0.3s ease;
   width: 100%;

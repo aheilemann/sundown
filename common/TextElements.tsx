@@ -13,7 +13,7 @@ export const H1 = styled.p<H1Props>`
 type H2Props = { secondary?: boolean };
 
 export const H2 = styled.p<H2Props>`
-  font-size: 2.25em;
+  font-size: 1.5em;
   color: ${(props) =>
     props.secondary
       ? props.theme.colors.secondary

@@ -9,44 +9,8 @@ import OrderContext from "../contexts/orderContext";
 
 import Navbar from "../components/Navbar";
 import RedButton from "../components/RedButton";
-import { Text, H1 } from "../common/TextElements";
-
-const Wrapper = styled.div`
-  display: flex;
-  flex-flow: column nowrap;
-  align-items: center;
-  justify-content: center;
-  padding: 3rem 0;
-`;
-
-const Grid = styled.div`
-  align-items: center;
-  justify-content: center;
-
-  width: 800px;
-  max-width: 800px;
-  margin-top: 3rem;
-`;
-
-const Row = styled.div`
-  display: flex;
-`;
-
-const Col = styled.div<{ size?: number }>`
-  display: flex;
-  flex-flow: column nowrap;
-  align-items: left;
-  justify-content: space-between;
-  margin: 0.5rem;
-  padding: 1rem;
-  text-align: left;
-  color: inherit;
-  text-decoration: none;
-  border: 1px solid #eaeaea;
-  border-radius: 10px;
-  flex: ${(props) => props.size};
-  max-height: 12rem;
-`;
+import { Text, H1, H2, H3 } from "../common/TextElements";
+import { Container, Grid, Col, Row } from "../common/Layout";
 
 const FoodWrapper = styled.div<{ size?: number }>`
   display: flex;
@@ -55,13 +19,16 @@ const FoodWrapper = styled.div<{ size?: number }>`
   justify-content: space-between;
   margin: 0.5rem;
   padding: 1rem;
-  text-align: left;
   color: inherit;
   text-decoration: none;
-  border: 1px solid #eaeaea;
+  border: 1px solid ${({ theme }) => theme.colors.grey};
   border-radius: 10px;
   flex: ${(props) => props.size};
   min-height: 24rem;
+`;
+
+const ImageFigure = styled.figure`
+  border-bottom: 1px solid ${({ theme }) => theme.colors.grey};
 `;
 
 const ImageSrc = styled.img`
@@ -83,44 +50,52 @@ async function fetchData() {
     }));
 }
 
+type FoodProps = {
+  dish: Dish;
+  error?: string;
+};
+
 const Food: React.FC<FoodProps> = ({ dish, error }) => {
   const [newDish, setDish] = useState<Dish>(dish);
-  // console.log(newDish.filter(x => x.strIn)); //onst ingredients = newDish.map(dish => dish);
-  const ingredients = Object.entries(newDish).filter(
-    (x) => x[1] && x[0].includes("Ingredient")
-  ).map(x => x[1]);
+  // console.log(newDish);
+  const ingredients = Object.entries(newDish)
+    .filter((x) => x[1] && x[0].includes("Ingredient"))
+    .map((x) => x[1]);
 
   const [order, setOrder] = useContext(OrderContext);
   async function handleClick() {
     const data = await fetchData();
     setDish(data.dish);
-    // console.log("order", order);
+    console.log("order", order);
   }
 
   return (
-    <Wrapper>
+    <Container>
       <Navbar />
       {error && <div>There was an error.</div>}
       {!error && newDish && (
         <Grid>
           <Row>
             <FoodWrapper size={7}>
-              <ImageSrc
-                src={newDish.strMealThumb}
-                alt={newDish.strMeal}
-                width={300}
-                height={300}
-              />
-              <H1>{newDish.strMeal}</H1>
-              <Text>Ingredients:</Text>
-              {ingredients && ingredients.map(ingredient => (
-              <li>{ingredient}</li>
-              ))}
-              <RedButton onClick={() => handleClick()}>Generate View</RedButton>
+                <ImageFigure>
+                <ImageSrc
+                  src={newDish.strMealThumb}
+                  alt="missing"
+                  width={300}
+                  height={300}
+                />
+                <figcaption>{newDish.strMeal} is a {newDish.strArea} {newDish.strCategory}</figcaption>
+              </ImageFigure>
+              
+              <H2>{newDish.strMeal}</H2>
+              <H3>Ingredients:</H3>
+              {ingredients &&
+                ingredients.map((ingredient) => <li>{ingredient}</li>)}
+              <RedButton onClick={() => handleClick()}>Find another dish!</RedButton>
             </FoodWrapper>
 
             <Col size={3}>
-              <Text>Order Flow Box</Text>
+              <H2>Pick drinks</H2>
               <Link href="/drinks" passHref>
                 <RedButton
                   onClick={() =>
@@ -137,7 +112,7 @@ const Food: React.FC<FoodProps> = ({ dish, error }) => {
           </Row>
         </Grid>
       )}
-    </Wrapper>
+    </Container>
   );
 };
 
@@ -149,22 +124,4 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   return {
     props: data,
   };
-};
-
-type FoodProps = {
-  dish: Dish;
-  error?: string;
-};
-
-type Dish = {
-  strMeal: string;
-  strInstructions: string;
-  strMealThumb: string;
-};
-
-type Drink = {
-  id: number;
-  name: string;
-  tagline: string;
-  image_url: string;
 };
