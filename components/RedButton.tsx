@@ -18,6 +18,13 @@ const ButtonRed = styled.button`
   transition: background 0.3s ease;
   width: 100%;
 
+  &:disabled{
+  cursor: default;
+  border: 1px solid #999999;
+  background-color: ${({ theme }) => theme.colors.grey};
+  color: #666666;
+}
+
   &:hover {
     filter: brightness(85%);
   }
