@@ -1,24 +1,9 @@
-/* tslint:disable */
 import Head from "next/head";
 import React from "react";
-import { createGlobalStyle, ThemeProvider } from "styled-components";
+import { ThemeProvider } from "styled-components";
 import theme from "../constants/theme";
 import { OrderProvider } from "../contexts/orderContext";
-
-const GlobalStyle = createGlobalStyle`
-  html, body {
-    margin: 0;
-    padding: 0;
-    font-family: Helvetica Neue;
-  }
-  a {
-    color: inherit;
-    text-decoration: none;
-  }
-  * {
-  box-sizing: border-box;
-  }
-`;
+import GlobalStyle from "../common/GlobalStyles";
 
 function MyApp({ Component, pageProps }) {
   return (
@@ -27,6 +12,7 @@ function MyApp({ Component, pageProps }) {
       <Head>
         <title>Sundown Boulevard</title>
         <meta name="description" content="Great food - great view" />
+        <link rel="shortcut icon" href="/favicon.ico" />
       </Head>
       <ThemeProvider theme={theme}>
         <OrderProvider>
