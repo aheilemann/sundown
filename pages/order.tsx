@@ -65,8 +65,7 @@ const Order = () => {
   };
 
   const handleSubmit = async (e) => {
-    console.log(e);
-    setOrder((order) => ({
+    setOrder((order: Order) => ({
       ...order,
       email,
       bookingDate,
