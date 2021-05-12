@@ -106,7 +106,7 @@ const Order = () => {
               value={numOfGuests}
               onChange={(e) => setNumOfGuests(parseInt(e.target.value))}
               min={1}
-              max={12}
+              max={10}
               step={1}
               required
             />
