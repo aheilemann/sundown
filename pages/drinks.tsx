@@ -103,7 +103,7 @@ const Drinks: React.FC<DrinksProps> = ({ drinks, error }) => {
               <H2>Pick date</H2>
               <Link href="/order" passHref>
                 <RedButton onClick={() => 
-                  setOrder((order) => ({ ...order, drinks: order.drinks.concat(selectedDrinks) }))
+                  setOrder((order: Order) => ({ ...order, drinks: order.drinks.concat(selectedDrinks) }))
                 }>NEXT</RedButton>
               </Link>
             </Col>

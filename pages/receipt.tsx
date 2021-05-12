@@ -7,7 +7,7 @@ import RedButton from "../components/RedButton";
 import { Text, H1 } from "../common/TextElements";
 import { Container } from "../common/Layout";
 
-function export2txt(order) {
+function export2txt(order: Order) {
   const a = document.createElement("a");
   a.href = URL.createObjectURL(
     new Blob([JSON.stringify(order, null, 2)], {
@@ -22,8 +22,7 @@ function export2txt(order) {
 }
 
 const Receipt = () => {
-  const [order, setOrder] = useContext(OrderContext);
-  console.log(order);
+  const [order, setOrder] = useContext<Order[]>(OrderContext);
 
   return (
     <Container>

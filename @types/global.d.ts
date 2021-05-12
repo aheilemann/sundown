@@ -10,6 +10,8 @@ type Dish = {
   strMeal: string;
   strInstructions: string;
   strMealThumb: string;
+  strArea: string;
+  strCategory: string;
 };
 
 type Drink = {

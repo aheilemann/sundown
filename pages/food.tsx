@@ -57,16 +57,15 @@ type FoodProps = {
 
 const Food: React.FC<FoodProps> = ({ dish, error }) => {
   const [newDish, setDish] = useState<Dish>(dish);
-  // console.log(newDish);
   const ingredients = Object.entries(newDish)
     .filter((x) => x[1] && x[0].includes("Ingredient"))
     .map((x) => x[1]);
 
   const [order, setOrder] = useContext(OrderContext);
+  
   async function handleClick() {
     const data = await fetchData();
     setDish(data.dish);
-    console.log("order", order);
   }
 
   return (
@@ -99,7 +98,7 @@ const Food: React.FC<FoodProps> = ({ dish, error }) => {
               <Link href="/drinks" passHref>
                 <RedButton
                   onClick={() =>
-                    setOrder((order) => ({
+                    setOrder((order: Order) => ({
                       ...order,
                       dishes: order.dishes.concat(newDish),
                     }))
