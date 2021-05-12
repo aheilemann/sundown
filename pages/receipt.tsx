@@ -11,6 +11,8 @@ import RedButton from "../components/RedButton";
 
 import "react-datepicker/dist/react-datepicker.css";
 
+import { Text, H1 } from "../common/TextElements";
+
 const Wrapper = styled.div`
   display: flex;
   flex-flow: column nowrap;
@@ -39,9 +41,24 @@ const ButtonWrapper = styled.div`
   width: 200px;
 `;
 
-const Text = styled.div`
-  color: ${({ theme }) => theme.colors.primary};
-`;
+// const H1 = styled.div`
+//   font-size: 3rem;
+//   color: ${({ theme }) => theme.colors.primary};
+// `;
+
+function export2txt(order) {
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(
+    new Blob([JSON.stringify(order, null, 2)], {
+      type: "text/plain",
+    })
+  );
+  a.setAttribute("download", "data.txt");
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  return true;
+}
 
 const Receipt = () => {
   const [order, setOrder] = useContext(OrderContext);
@@ -52,16 +69,25 @@ const Receipt = () => {
       <Navbar />
       {order && (
         <div>
-          <Text>Receipt</Text>
+          <H1>Receipt</H1>
+          {!!order.dishes.length && <Text>Dishes</Text>}
           {order.dishes.map((dish, idx) => (
-            <div key={idx}>{dish.strMeal}</div>
+            <Text secondary key={idx}>
+              {dish.strMeal}
+            </Text>
           ))}
+          {!!order.drinks.length && <Text>Drinks</Text>}
           {order.drinks.map((drink, idx) => (
-            <div key={idx}>{drink.name}</div>
+            <Text secondary key={idx}>
+              {drink.name}
+            </Text>
           ))}
-          <p>{order.bookingDate.toLocaleString("da-DK")}</p>
-          <p>{order.numOfGuests}</p>
-          <p>{order.email}</p>
+          <Text>Booking details</Text>
+          <Text secondary>{order.bookingDate.toLocaleString("da-DK")}</Text>
+          <Text>Number of guests: </Text>
+          <Text secondary>{order.numOfGuests}</Text>
+          <Text secondary>{order.email}</Text>
+          <RedButton onClick={() => export2txt(order)}>Download</RedButton>
         </div>
       )}
     </Wrapper>

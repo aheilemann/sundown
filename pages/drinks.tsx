@@ -9,6 +9,7 @@ import OrderContext from "../contexts/orderContext";
 
 import Navbar from "../components/Navbar";
 import RedButton from "../components/RedButton";
+import { Text, H3 } from "../common/TextElements";
 
 const Wrapper = styled.div`
   display: flex;
@@ -83,11 +84,6 @@ const DrinkWrapper = styled.div<{ size?: number }>`
   overflow:hidden;
 `;
 
-
-const Text = styled.div`
-  color: ${({ theme }) => theme.colors.primary};
-`;
-
 const ImageSrc = styled.img`
   display: flex;
   align-items: center;
@@ -122,8 +118,8 @@ const Drinks: React.FC<DrinksProps> = ({ drinks, error }) => {
           {drinks.map(drink => (
             <DrinkWrapper onClick={() => !selectedDrinks.includes(drink) && selectedDrinks.push(drink)}>
               <ImageSrc  src={drink.image_url} alt={drink.tagline} height={"50%"} width={"auto"}  />
-              <h3>{drink.name}</h3>
-              <body>{drink.tagline}</body>
+              <H3>{drink.name}</H3>
+              <Text secondary>{drink.tagline}</Text>
               </DrinkWrapper>
           ))}
             </DrinksWrapper>

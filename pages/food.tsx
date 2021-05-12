@@ -9,7 +9,7 @@ import OrderContext from "../contexts/orderContext";
 
 import Navbar from "../components/Navbar";
 import RedButton from "../components/RedButton";
-
+import { Text, H1 } from "../common/TextElements";
 
 const Wrapper = styled.div`
   display: flex;
@@ -64,10 +64,6 @@ const FoodWrapper = styled.div<{ size?: number }>`
   min-height: 24rem;
 `;
 
-const Text = styled.div`
-  color: ${({ theme }) => theme.colors.primary};
-`;
-
 const ImageSrc = styled.img`
   display: flex;
   align-items: center;
@@ -89,6 +85,11 @@ async function fetchData() {
 
 const Food: React.FC<FoodProps> = ({ dish, error }) => {
   const [newDish, setDish] = useState<Dish>(dish);
+  // console.log(newDish.filter(x => x.strIn)); //onst ingredients = newDish.map(dish => dish);
+  const ingredients = Object.entries(newDish).filter(
+    (x) => x[1] && x[0].includes("Ingredient")
+  ).map(x => x[1]);
+
   const [order, setOrder] = useContext(OrderContext);
   async function handleClick() {
     const data = await fetchData();
@@ -104,25 +105,33 @@ const Food: React.FC<FoodProps> = ({ dish, error }) => {
         <Grid>
           <Row>
             <FoodWrapper size={7}>
-              {/* {order.dishes[0].strMeal} */}
-
               <ImageSrc
                 src={newDish.strMealThumb}
                 alt={newDish.strMeal}
                 width={300}
                 height={300}
               />
-              <h1>{newDish.strMeal}</h1>
-              <body>{newDish.strInstructions}</body>
+              <H1>{newDish.strMeal}</H1>
+              <Text>Ingredients:</Text>
+              {ingredients && ingredients.map(ingredient => (
+              <li>{ingredient}</li>
+              ))}
               <RedButton onClick={() => handleClick()}>Generate View</RedButton>
             </FoodWrapper>
 
             <Col size={3}>
               <Text>Order Flow Box</Text>
               <Link href="/drinks" passHref>
-                <RedButton onClick={() =>
-                  setOrder((order) => ({ ...order, dishes: order.dishes.concat(newDish) }))
-                }>NEXT</RedButton>
+                <RedButton
+                  onClick={() =>
+                    setOrder((order) => ({
+                      ...order,
+                      dishes: order.dishes.concat(newDish),
+                    }))
+                  }
+                >
+                  NEXT
+                </RedButton>
               </Link>
             </Col>
           </Row>

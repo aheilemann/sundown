@@ -2,6 +2,8 @@ import styled from "styled-components";
 import Navbar from "../components/Navbar";
 import RedButton from "../components/RedButton";
 import Link from "next/link";
+import { useState } from "react";
+import { Text } from "../common/TextElements";
 
 const Wrapper = styled.div`
   display: flex;
@@ -24,6 +26,11 @@ const Row = styled.div`
   display: flex;
 `;
 
+const TextWrapper = styled.div`
+  display: flex;
+  align-items: baseline;
+`;
+
 const Col = styled.div<{ size?: number }>`
   display: flex;
   flex-flow: column nowrap;
@@ -40,11 +47,13 @@ const Col = styled.div<{ size?: number }>`
   min-height: 12rem;
 `;
 
-const Text = styled.div`
-  color: ${({ theme }) => theme.colors.primary};
+const ButtonWrapper = styled.div`
+  display: flex;
+  width: 200px;
 `;
 
 export default function Home() {
+  const [email, setEmail] = useState("");
   return (
     <Wrapper>
       <Navbar />
@@ -54,16 +63,34 @@ export default function Home() {
             <Text>IMAGES</Text>
           </Col>
           <Col size={3}>
-            <Text>Order Flow Box</Text>
-            <Link href="/food" passHref><RedButton>ORDER</RedButton></Link>
+            <Text>Start your order here:</Text>
+            <Link href="/food" passHref>
+              <RedButton>ORDER</RedButton>
+            </Link>
           </Col>
         </Row>
         <Row>
           <Col size={5}>
-            <Text>Find your order</Text>
+            <Text>Enter Email: </Text>
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+            <ButtonWrapper>
+              <Link href="/food" passHref>
+                <RedButton>FIND</RedButton>
+              </Link>
+            </ButtonWrapper>
           </Col>
           <Col size={5}>
-            <Text>Content Box</Text>
+            <TextWrapper><Text>Elisabeth: </Text>
+            <Text secondary>Best food I ever had!🥫</Text></TextWrapper>
+            <TextWrapper><Text>Wendy:</Text>
+            <Text secondary>I loved the variety of dishes 🍲🥗🍼</Text></TextWrapper>
+            <TextWrapper><Text>Bjarne:</Text>
+            <Text secondary>You can have unlimited beers 🤩</Text></TextWrapper>
           </Col>
         </Row>
       </Grid>
