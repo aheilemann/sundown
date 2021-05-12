@@ -81,6 +81,16 @@ const Drinks: React.FC<DrinksProps> = ({ drinks, error }) => {
   const selectedDrinks: Drink[] = [];
   const [order, setOrder] = useContext(OrderContext);
 
+  function handleClick(drink: Drink) {
+    if (selectedDrinks.includes(drink)) {
+      const index = selectedDrinks.indexOf(drink);
+      selectedDrinks.splice(index, 1);
+      return;
+    }
+    !selectedDrinks.includes(drink) && selectedDrinks.push(drink);
+    return;
+  }
+
   return (
     <Wrapper>
       <Navbar />
@@ -103,10 +113,7 @@ const Drinks: React.FC<DrinksProps> = ({ drinks, error }) => {
                       <input
                         type="checkbox"
                         id={drink.name}
-                        onClick={() =>
-                          !selectedDrinks.includes(drink) &&
-                          selectedDrinks.push(drink)
-                        }
+                        onClick={() => handleClick(drink)}
                       />
                     </H3>
 
