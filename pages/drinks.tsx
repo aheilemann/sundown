@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import Link from "next/link";
-import Image from 'next/image'
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext } from "react";
 import { GetServerSideProps } from "next";
 import axios from "axios";
 
@@ -26,11 +25,10 @@ const DrinksWrapper = styled.div<{ size?: number }>`
   align-items: left;
   justify-content: space-between;
   margin: 0.5rem;
-  /* padding: 1rem; */
   text-align: left;
   color: inherit;
   text-decoration: none;
-  border: 1px solid ${({ theme }) => theme.colors.grey};;
+  border: 1px solid ${({ theme }) => theme.colors.grey};
   border-radius: 10px;
   flex: ${(props) => props.size};
   min-height: 24rem;
@@ -46,13 +44,13 @@ const ItemWrapper = styled.div<{ size?: number }>`
   text-align: center;
   color: inherit;
   text-decoration: none;
-  border: 1px solid ${({ theme }) => theme.colors.grey};;
+  border: 1px solid ${({ theme }) => theme.colors.grey};
   border-radius: 10px;
   flex: ${(props) => props.size};
   width: 45%;
   min-width: 45%;
   max-height: 200px;
-  overflow:hidden;
+  overflow: hidden;
 `;
 
 const ImageSrc = styled.img`
@@ -61,7 +59,7 @@ const ImageSrc = styled.img`
   justify-content: center;
 `;
 
-async function fetchData (){
+async function fetchData() {
   return await axios
     .get<Drink[]>("https://api.punkapi.com/v2/beers")
     .then((res) => ({
@@ -72,7 +70,7 @@ async function fetchData (){
       error: true,
       drinks: null,
     }));
-  };
+}
 
 type DrinksProps = {
   drinks: Drink[];
@@ -90,21 +88,46 @@ const Drinks: React.FC<DrinksProps> = ({ drinks, error }) => {
       {!error && drinks && (
         <Grid>
           <Row>
-          <DrinksWrapper size={7}>
-          {drinks.map(drink => (
-            <ItemWrapper onClick={() => !selectedDrinks.includes(drink) && selectedDrinks.push(drink)}>
-              <ImageSrc  src={drink.image_url} alt={drink.tagline} height={"50%"} width={"auto"}  />
-              <H3>{drink.name}</H3>
-              <Text secondary>{drink.tagline}</Text>
-              </ItemWrapper>
-          ))}
+            <DrinksWrapper size={7}>
+              {drinks.map((drink) => {
+                return (
+                  <ItemWrapper>
+                    <ImageSrc
+                      src={drink.image_url}
+                      alt={drink.tagline}
+                      height={"50%"}
+                      width={"auto"}
+                    />
+                    <H3>
+                      {drink.name}
+                      <input
+                        type="checkbox"
+                        id={drink.name}
+                        onClick={() =>
+                          !selectedDrinks.includes(drink) &&
+                          selectedDrinks.push(drink)
+                        }
+                      />
+                    </H3>
+
+                    <Text secondary>{drink.tagline}</Text>
+                  </ItemWrapper>
+                );
+              })}
             </DrinksWrapper>
             <Col size={3}>
               <H2>Pick date</H2>
               <Link href="/order" passHref>
-                <RedButton onClick={() => 
-                  setOrder((order: Order) => ({ ...order, drinks: order.drinks.concat(selectedDrinks) }))
-                }>NEXT</RedButton>
+                <RedButton
+                  onClick={() =>
+                    setOrder((order: Order) => ({
+                      ...order,
+                      drinks: order.drinks.concat(selectedDrinks),
+                    }))
+                  }
+                >
+                  NEXT
+                </RedButton>
               </Link>
             </Col>
           </Row>
