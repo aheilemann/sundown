@@ -4,47 +4,11 @@ import RedButton from "../components/RedButton";
 import Link from "next/link";
 import { useState } from "react";
 import { Text, H2, H3 } from "../common/TextElements";
-
-const Wrapper = styled.div`
-  display: flex;
-  flex-flow: column nowrap;
-  align-items: center;
-  justify-content: center;
-  padding: 3rem 0;
-`;
-
-const Grid = styled.div`
-  align-items: center;
-  justify-content: center;
-
-  width: 800px;
-  max-width: 800px;
-  margin-top: 3rem;
-`;
-
-const Row = styled.div`
-  display: flex;
-`;
+import { Container, Grid, Col, Row } from "../common/Layout";
 
 const TextWrapper = styled.div`
   display: flex;
   align-items: baseline;
-`;
-
-const Col = styled.div<{ size?: number }>`
-  display: flex;
-  flex-flow: column nowrap;
-  align-items: left;
-  justify-content: space-between;
-  margin: 0.5rem;
-  padding: 1rem;
-  text-align: left;
-  color: inherit;
-  text-decoration: none;
-  border: 1px solid #eaeaea;
-  border-radius: 10px;
-  flex: ${(props) => props.size};
-  min-height: 12rem;
 `;
 
 const ButtonWrapper = styled.div`
@@ -61,7 +25,7 @@ const ImageSrc = styled.img`
 export default function Home() {
   const [email, setEmail] = useState("");
   return (
-    <Wrapper>
+    <Container>
       <Navbar />
       <Grid>
         <Row>
@@ -105,6 +69,6 @@ export default function Home() {
           </Col>
         </Row>
       </Grid>
-    </Wrapper>
+    </Container>
   );
 }

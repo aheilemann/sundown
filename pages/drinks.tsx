@@ -9,15 +9,7 @@ import OrderContext from "../contexts/orderContext";
 import Navbar from "../components/Navbar";
 import RedButton from "../components/RedButton";
 import { Text, H2, H3 } from "../common/TextElements";
-import { Grid, Col, Row } from "../common/Layout";
-
-const Wrapper = styled.div`
-  display: flex;
-  flex-flow: column nowrap;
-  align-items: center;
-  justify-content: center;
-  padding: 3rem 0;
-`;
+import { Container, Grid, Col, Row } from "../common/Layout";
 
 const DrinksWrapper = styled.div<{ size?: number }>`
   display: flex;
@@ -92,7 +84,7 @@ const Drinks: React.FC<DrinksProps> = ({ drinks, error }) => {
   }
 
   return (
-    <Wrapper>
+    <Container>
       <Navbar />
       {error && <div>There was an error.</div>}
       {!error && drinks && (
@@ -140,7 +132,7 @@ const Drinks: React.FC<DrinksProps> = ({ drinks, error }) => {
           </Row>
         </Grid>
       )}
-    </Wrapper>
+    </Container>
   );
 };
 export default Drinks;

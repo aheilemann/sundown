@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import Link from "next/link";
-import Image from "next/image";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import axios from "axios";
 import { GetServerSideProps } from "next";
 
@@ -9,7 +8,7 @@ import OrderContext from "../contexts/orderContext";
 
 import Navbar from "../components/Navbar";
 import RedButton from "../components/RedButton";
-import { Text, H1, H2, H3 } from "../common/TextElements";
+import { H2, H3 } from "../common/TextElements";
 import { Container, Grid, Col, Row } from "../common/Layout";
 
 const FoodWrapper = styled.div<{ size?: number }>`
