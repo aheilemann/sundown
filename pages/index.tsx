@@ -51,11 +51,11 @@ export default function Home() {
               value={email}
               placeholder="Enter Email:"
               onChange={(e) => setEmail(e.target.value)}
-              required
+              disabled
             />
             <ButtonWrapper>
               <Link href="/food" passHref>
-                <RedButton>Find Order</RedButton>
+                <RedButton disabled>Find Order</RedButton>
               </Link>
             </ButtonWrapper>
           </Col>
